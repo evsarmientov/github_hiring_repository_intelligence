@@ -19,7 +19,7 @@ def build_llm_summary(row: pd.Series) -> str:
     has_ci = "Yes" if row.get("has_ci_workflows", False) else "No"
     has_lic = "Yes" if row.get("has_license", False) else "No"
     has_wiki = "Yes" if row.get("has_wiki", False) else "No"
-    desc = row.get("description", "") or ""
+    desc = str(row.get("description", "") or "")
 
     return (
         f"Repository: {row.get('full_name', 'unknown')}\n"
@@ -45,7 +45,7 @@ def build_bert_input(row: pd.Series) -> str:
     topics_str = " ".join(topics[:6]) if topics else "no topics"
     has_ci = "has CI/CD workflows" if row.get("has_ci_workflows", False) else "no CI/CD"
     has_lic = "has a license" if row.get("has_license", False) else "no license"
-    desc = row.get("description", "") or ""
+    desc = str(row.get("description", "") or "")
     desc_part = f'Description: "{desc[:150]}". ' if desc else ""
 
     stars = int(row.get("stargazers_count", 0))
